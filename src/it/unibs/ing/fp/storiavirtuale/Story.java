@@ -105,4 +105,22 @@ public class Story implements Comparable<Story> {
 		return Integer.compare(this.numberOfParagraphs, other.numberOfParagraphs);
 	}
 	
+	public int calculateDimension() { //Metodo implementato per rendere più intuitivo che numberOfParagraphs
+		return numberOfParagraphs;	  //individua la dimensione, uno dei parametri usati per calcolare la difficolta'
+	}
+	
+	public double calculateVerbosity() {
+		double totalCharacters = 0;
+		for(Paragraph par : paragraphs)
+			totalCharacters += par.getDescription().length(); //Si potrebbe inserire un .trim() dopo getDescription(),
+		return totalCharacters / numberOfParagraphs;		  //ma avendolo gia' inserito nell' XMLParser si puo' evitare 
+	}
+	
+	public double calculatePlotComplexity() {
+		double totalOptions = 0;
+		for(int i = 1; i < paragraphs.size() - 1; i++)
+			totalOptions += paragraphs.get(i).getOptions().size();
+		return totalOptions / (numberOfParagraphs - 2); //Escludo il primo e l'ultimo, come da consegna
+	}		
+	
 }

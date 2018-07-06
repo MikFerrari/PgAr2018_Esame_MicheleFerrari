@@ -18,15 +18,6 @@ public class Paragraph implements Comparable<Paragraph> {
 		IdAdjacents = new ArrayList<>();
 		optionsTitle = new ArrayList<>();
 	}
-
-//	public Paragraph(String description, int id, String type) {
-//		this.description = description;
-//		this.id = id;
-//		this.type = type;
-//		options = new LinkedList<>();
-//		IdAdjacents = new ArrayList<>();
-//		optionsTitle = new ArrayList<>();
-//	}
 	
 	public boolean isFinalParagraph() {
 		return options.isEmpty();

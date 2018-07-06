@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class StoryCollection {
 
+	private final static String STORY_COLLECTION_HEADING = "\nElenco di tutte le storie: \n";
+	
 	private ArrayList<Story> stories;
 	
 	public StoryCollection() {
@@ -29,7 +31,7 @@ public class StoryCollection {
 	
 	@Override
 	public String toString() {
-		StringBuffer res = new StringBuffer("\nElenco di tutte le storie: \n");
+		StringBuffer res = new StringBuffer(STORY_COLLECTION_HEADING);
 		for(Story story : stories)
 			res.append(story.getTitle() + "\n");
 		return res.toString();
