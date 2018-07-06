@@ -2,6 +2,13 @@ package it.unibs.ing.fp.storiavirtuale;
 
 import it.unibs.ing.fp.mylib.MyMenu;
 
+/**
+ * Classe con metodi statici per l'interazione con l'utente.
+ * Molti metodi non erano presenti nell'UML poichè sono stati aggiunti dopo aver implementato il nucleo.
+ * 
+ * @author Michele Ferrari
+ *
+ */
 public class UserInterface {
 	
 	private final static String[] VOICES = { "Cercare una storia", "Selezionare una storia da giocare" ,
@@ -22,6 +29,12 @@ public class UserInterface {
 	private final static String MIN_PATH_FORMAT = "Lunghezza della piu' breve storia possibile: %d";
 	private final static String FINAL_DIFFICULTY_FORMAT = "Difficolta' complessiva della storia: %.2f";
 
+	/**
+	 * Metodo per generare una storia
+	 * 
+	 * @param story
+	 * @param filename
+	 */
 	public static void generateStory(Story story, String filename) {
 		XMLParser.read(filename, story);
 
@@ -30,6 +43,11 @@ public class UserInterface {
 		story.linkAdjacentParagraphs();
 	}
 	
+	/**
+	 * Metodo per gestire l'interazione con l'utente attraverso un menu';
+	 * 
+	 * @param story
+	 */
 	public static void manageInteraction(Story story) { //Si potrebbe fare nel main come pensato inizialmente,
 											 			//ma preferisco scrivere l'algoritmo qui per rendere il main più pulito
 		System.out.println(story);
@@ -50,6 +68,11 @@ public class UserInterface {
 		System.out.println(END_STORY_MESSAGE);
 	}
 	
+	/**
+	 * Metodo con un sotto-menu' per gestire le operazioni sull'insieme delle storie (Modulo 1)
+	 * 
+	 * @param collection
+	 */
 	public static void manageCollection(StoryCollection collection) {
 	
 		MyMenu menu = new MyMenu(COLLECTION_MENU_TITLE, VOICES);
@@ -123,6 +146,12 @@ public class UserInterface {
 		
 	}
 	
+	/**
+	 * Metodo per la selezione di una storia, passando in ingresso un insieme di storie
+	 * 
+	 * @param collection
+	 * @return Story la storia selezionata
+	 */
 	private static Story selectStory(StoryCollection collection) {
 		MyMenu menu = new MyMenu(PLAYSTORY_MENU_TITLE, collection.getStories());
 		int choice = menu.choose();

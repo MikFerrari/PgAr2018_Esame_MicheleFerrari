@@ -6,8 +6,20 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 
+/**
+ * Classe per la lettura di files XML
+ * 
+ * @author Michele PC
+ *
+ */
 public class XMLParser {
 	
+	/**
+	 * Metodo static che legge un file XML e salva i dati da esso estrapolati negli attributi di una Story passata come parametro
+	 * 
+	 * @param fileName
+	 * @param story
+	 */
 	public static void read(String fileName, Story story) {
         
 		String storyTitle;
