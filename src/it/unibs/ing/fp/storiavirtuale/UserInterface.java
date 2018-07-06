@@ -10,15 +10,17 @@ public class UserInterface {
 	private final static String END_STORY_MESSAGE = "La storia è terminata!";
 	private final static String COLLECTION_MENU_TITLE = "Selezionare un'opzione";
 	private final static String FINDSTORY_MENU_TITLE = "Inserire il titolo della storia da cercare";
-	private final static String PLAYSTORY_MENU_TITLE = "Inserire il titolo della storia da giocare";
+	private final static String PLAYSTORY_MENU_TITLE = "Inserire il titolo della storia";
 	private final static String DIFFICULTY_MENU_TITLE = "Selezionare uno dei seguenti algoritmi per eseguirlo";
 	private final static String[] DIFFICULTY_MENU_CHOICES = { "Calcola la dimensione della storia", "Calcola la verbosita' della storia",
 															  "Calcola la complessita' dell'intreccio della storia",
-															  "Calcolare il numero di paragrafi della storia piu' breve" };
+															  "Calcolare il numero di paragrafi della storia piu' breve",
+															  "Calcolare la difficolta' complessiva" };
 	private final static String DIMENSION_FORMAT = "Dimensione della storia selezionata: %d";
 	private final static String VERBOSITY_FORMAT = "Verbosita' della storia selezionata: %.2f";
 	private final static String PLOT_COMPLEXITY_FORMAT = "Complessita' dell'intreccio della storia selezionata: %.2f";
 	private final static String MIN_PATH_FORMAT = "Lunghezza della piu' breve storia possibile: %d";
+	private final static String FINAL_DIFFICULTY_FORMAT = "Difficolta' complessiva della storia: %.2f";
 
 	public static void generateStory(Story story, String filename) {
 		XMLParser.read(filename, story);
@@ -62,13 +64,15 @@ public class UserInterface {
 					
 				case 1: MyMenu case1Menu = new MyMenu(FINDSTORY_MENU_TITLE, collection.getStories());
 						int case1Coiche = case1Menu.choose();
-						String case1Story = collection.getStories().get(case1Coiche - 1).getTitle();
-						System.out.println(collection.searchStory(case1Story)); //Funzione per la ricerca della storia via titolo,
-																				//superflua se si struttura il codice come nel case 2
+						if(case1Coiche != 0) {
+							String case1Story = collection.getStories().get(case1Coiche - 1).getTitle();
+							System.out.println(collection.searchStory(case1Story)); //Funzione per la ricerca della storia via titolo,
+						}															//superflua se si struttura il codice come nel case 2
 					break;
 					
 				case 2: Story case2Story = selectStory(collection);
-						manageInteraction(case2Story);
+						if(case2Story != null)
+							manageInteraction(case2Story);
 					break;
 					
 				case 3: System.out.println(collection.toString());
@@ -86,6 +90,8 @@ public class UserInterface {
 					
 				case 6: MyMenu case6Menu = new MyMenu(DIFFICULTY_MENU_TITLE, DIFFICULTY_MENU_CHOICES);
 						int case6Choice = case6Menu.choose();
+						if(case6Choice == 0)
+							break;
 						Story case6Story = selectStory(collection);
 
 						switch(case6Choice) {
@@ -101,7 +107,12 @@ public class UserInterface {
 							case 3: System.out.println(String.format(PLOT_COMPLEXITY_FORMAT, case6Story.calculatePlotComplexity()));
 								break;
 								
-							case 4: System.out.println(String.format(MIN_PATH_FORMAT, case6Story.depthFirstSearch()));
+							case 4: if(case6Story != null)
+										System.out.println(String.format(MIN_PATH_FORMAT, case6Story.depthFirstSearchShortest()));
+								break;
+							
+							case 5: if(case6Story != null)
+										System.out.println(String.format(FINAL_DIFFICULTY_FORMAT, case6Story.calculateDifficulty()));
 								break;
 						}
 						
@@ -115,8 +126,11 @@ public class UserInterface {
 	private static Story selectStory(StoryCollection collection) {
 		MyMenu menu = new MyMenu(PLAYSTORY_MENU_TITLE, collection.getStories());
 		int choice = menu.choose();
-		Story story = collection.getStories().get(choice - 1);
-		return story;
+		if(choice != 0) {
+			Story story = collection.getStories().get(choice - 1);
+			return story;
+		}
+		else return null;
 	}
 		
 }

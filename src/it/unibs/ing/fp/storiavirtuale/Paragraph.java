@@ -10,6 +10,7 @@ public class Paragraph implements Comparable<Paragraph> {
 	private String type;
 	private ArrayList<Integer> IdAdjacents;
 	private ArrayList<String> optionsTitle;
+	private boolean alreadyVisited = false;
 	
 	public Paragraph(int id, String type) {
 		this.id = id;
@@ -68,6 +69,14 @@ public class Paragraph implements Comparable<Paragraph> {
 
 	public ArrayList<Paragraph> getOptions() {
 		return options;
+	}
+
+	public boolean isAlreadyVisited() {
+		return alreadyVisited;
+	}
+
+	public void setAlreadyVisited(boolean alreadyVisited) {
+		this.alreadyVisited = alreadyVisited;
 	}
 	
 }

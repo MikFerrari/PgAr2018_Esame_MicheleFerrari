@@ -1,8 +1,6 @@
 package it.unibs.ing.fp.storiavirtuale;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Queue;
 import java.util.Stack;
 
 public class Story implements Comparable<Story> {
@@ -126,15 +124,17 @@ public class Story implements Comparable<Story> {
 		return totalOptions / (numberOfParagraphs - 2); //Escludo il primo e l'ultimo, come da consegna
 	}	
 	
-	public int depthFirstSearch() {
+	public int depthFirstSearchShortest() { //Algoritmo per calcolare il percorso minimo nel grafo
 		int pathLength = 0;
 		int minPathLenght = Integer.MAX_VALUE;
 		int counter = 0;
 		Stack<Paragraph> nodesToVisit = new Stack<Paragraph>();
 		nodesToVisit.push(startingPoint);
+		startingPoint.setAlreadyVisited(true);
 		
 		while(!nodesToVisit.isEmpty()) {
 			Paragraph currentNode = nodesToVisit.pop();
+			
 			if(currentNode.isFinalParagraph()) {
 				pathLength = counter;
 				counter -= 2; //Tolgo 2 perchè alla fine reincremento di 1
@@ -144,13 +144,20 @@ public class Story implements Comparable<Story> {
 			
 			if(!currentNode.isFinalParagraph())
 				for(Paragraph par : currentNode.getOptions())
-					nodesToVisit.push(par);
+					if(!par.isAlreadyVisited()) {
+						nodesToVisit.push(par);
+						par.setAlreadyVisited(true);
+					}
 			
 			counter++;
 		}
 		
 		return pathLength;
 		
+	}
+	
+	public double calculateDifficulty() {
+		return calculatePlotComplexity() * depthFirstSearchShortest();
 	}
 	
 }
