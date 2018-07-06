@@ -1,0 +1,98 @@
+package it.unibs.ing.fp.storiavirtuale;
+
+import java.io.FileInputStream;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamReader;
+
+public class XMLParser {
+	
+	public static void read(String fileName, Story story) {
+        
+		String storyTitle;
+		int ParagraphId;
+		int size;
+		int linkTo;
+		String option;
+		String type;
+		String description;
+		
+		String temp = "";
+		Paragraph par = null;
+        
+        try {
+        	
+            XMLInputFactory xmlif = XMLInputFactory.newInstance();
+            XMLStreamReader xmlr = xmlif.createXMLStreamReader(fileName, new FileInputStream(fileName));
+            
+            while(xmlr.hasNext()) {
+            	
+                switch(xmlr.getEventType()) {
+                    
+                	case XMLStreamConstants.START_DOCUMENT:
+                		//System.out.println("Start Read Doc "+ fileName);
+                		break;
+                		
+                	case XMLStreamConstants.COMMENT:
+                		//System.out.println("Reading comment");
+                		break;
+	            	
+                		
+                	case XMLStreamConstants.START_ELEMENT:
+                		temp = xmlr.getLocalName();
+                		//System.out.println(temp);
+                       
+                		if(xmlr.getLocalName().equals("story")) {
+                			storyTitle = xmlr.getAttributeValue(0);
+                			size = Integer.valueOf(xmlr.getAttributeValue(1));
+                			story.setTitle(storyTitle);
+                			story.setNumberOfParagraphs(size);
+                			//System.out.println(storyTitle + " " + size);
+                		}
+                		
+                		if(xmlr.getLocalName().equals("paragraph")) {
+                			ParagraphId = Integer.valueOf(xmlr.getAttributeValue(0));
+                			type = xmlr.getAttributeValue(1);
+                			par = new Paragraph(ParagraphId, type);
+                			story.getParagraphs().add(par);
+                			//System.out.println(ParagraphId + " " + type);
+                		}
+                		
+                		if(xmlr.getLocalName().equals("option")) {
+                			linkTo = Integer.valueOf(xmlr.getAttributeValue(0));
+                			par.getIdAdjacents().add(linkTo);
+                			//System.out.println(linkTo);
+                		}
+                		
+                		break;
+               
+            		case XMLStreamConstants.CHARACTERS:
+            			if(temp.equals("description")) {
+            				description = xmlr.getText().trim();
+            				par.setDescription(description);
+            				//System.out.println(description);
+            			}
+            			
+            			if(temp.equals("option")) {
+                			option = xmlr.getText().trim();
+                			par.getOptionsTitle().add(option);            
+                			//System.out.println(option);
+            			}
+            				
+            			break;
+                    
+                	default:
+                		break;
+                }
+                xmlr.next();
+            }
+            
+        }
+        
+        catch(Exception e){
+            System.err.println("Error detected");
+            System.err.println(e.getMessage());
+        }
+    }
+}
