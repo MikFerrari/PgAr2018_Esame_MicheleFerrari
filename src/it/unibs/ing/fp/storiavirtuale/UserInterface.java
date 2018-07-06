@@ -22,6 +22,9 @@ public class UserInterface {
 			
 			int choice = menu.choose();
 			
+			if(choice == 0)
+				break;
+			
 			currentParagraph = currentParagraph.getOptions().get(choice - 1); //Baste fare così poichè i titoli e i rispettivi paragrafi
 																	  		  //sono stati aggiunti ordinatamente
 		}

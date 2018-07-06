@@ -73,8 +73,8 @@ public class XMLParser {
             			if(temp.equals("description") && cont == 0) {
             				description = xmlr.getText().trim();
             				par.setDescription(description);
-//           				System.out.println(par.toString());
-//            				System.out.println(par.getDescription());
+            				//System.out.println(par.toString());
+            				//System.out.println(par.getDescription());
             				cont++; 
             			}
             			

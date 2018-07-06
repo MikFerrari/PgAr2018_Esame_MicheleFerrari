@@ -1,13 +1,12 @@
 package it.unibs.ing.fp.storiavirtuale;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Paragraph implements Comparable<Paragraph> {
 
 	private String description;
 	private int id;
-	private LinkedList<Paragraph> options; //cambiata in ArrayList per migliorare efficienza (Utilizzo accessi casuali)
+	private ArrayList<Paragraph> options; //cambiata in ArrayList per migliorare efficienza (Utilizzo accessi casuali)
 	private String type;
 	private ArrayList<Integer> IdAdjacents;
 	private ArrayList<String> optionsTitle;
@@ -15,7 +14,7 @@ public class Paragraph implements Comparable<Paragraph> {
 	public Paragraph(int id, String type) {
 		this.id = id;
 		this.type = type;
-		options = new LinkedList<>();
+		options = new ArrayList<>();
 		IdAdjacents = new ArrayList<>();
 		optionsTitle = new ArrayList<>();
 	}
@@ -76,7 +75,7 @@ public class Paragraph implements Comparable<Paragraph> {
 		return id;
 	}
 
-	public LinkedList<Paragraph> getOptions() {
+	public ArrayList<Paragraph> getOptions() {
 		return options;
 	}
 	

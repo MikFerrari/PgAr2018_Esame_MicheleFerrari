@@ -1,25 +1,25 @@
 package it.unibs.ing.fp.storiavirtuale;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Story {
 
 	private String title;
-	private LinkedList<Paragraph> paragraphs; ////cambiata in ArrayList per migliorare efficienza (Utilizzo accessi casuali)
+	private ArrayList<Paragraph> paragraphs; ////cambiata in ArrayList per migliorare efficienza (Utilizzo accessi casuali)
 	private Paragraph startingPoint;
-	private LinkedList<Paragraph> endingPoints;
+	private ArrayList<Paragraph> endingPoints;
 	private int numberOfParagraphs;
 	
 	public Story() {
-		paragraphs = new LinkedList<>();
+		paragraphs = new ArrayList<>();
 		startingPoint = null;
-		endingPoints = new LinkedList<>();
+		endingPoints = new ArrayList<>();
 	}
 	
 	public Story(String title, int numberOfParagraphs) {
-		paragraphs = new LinkedList<>();
+		paragraphs = new ArrayList<>();
 		startingPoint = null;
-		endingPoints = new LinkedList<>();
+		endingPoints = new ArrayList<>();
 		this.title = title;
 		this.numberOfParagraphs = numberOfParagraphs;
 	}
@@ -28,11 +28,11 @@ public class Story {
 		this.startingPoint = startingPoint;
 	}
 
-	public LinkedList<Paragraph> getParagraphs() {
+	public ArrayList<Paragraph> getParagraphs() {
 		return paragraphs;
 	}
 
-	public void setParagraphs(LinkedList<Paragraph> paragraphs) {
+	public void setParagraphs(ArrayList<Paragraph> paragraphs) {
 		this.paragraphs = paragraphs;
 	}
 
@@ -52,8 +52,8 @@ public class Story {
 		this.title = title;
 	}
 	
-	private LinkedList<Paragraph> findFinalParagraph() {
-		LinkedList<Paragraph> temp = new LinkedList<>();
+	private ArrayList<Paragraph> findFinalParagraph() {
+		ArrayList<Paragraph> temp = new ArrayList<>();
 		for(Paragraph par : paragraphs)
 			if(par.getId() == (numberOfParagraphs - 1))
 				temp.add(par);

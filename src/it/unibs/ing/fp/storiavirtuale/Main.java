@@ -17,7 +17,6 @@ public class Main {
 		
 		bye();
 		
-
 	}
 	
 	private static void welcome() {
