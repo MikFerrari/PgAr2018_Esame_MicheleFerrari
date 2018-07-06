@@ -7,7 +7,7 @@ public class Paragraph implements Comparable<Paragraph> {
 
 	private String description;
 	private int id;
-	private LinkedList<Paragraph> options;
+	private LinkedList<Paragraph> options; //cambiata in ArrayList per migliorare efficienza (Utilizzo accessi casuali)
 	private String type;
 	private ArrayList<Integer> IdAdjacents;
 	private ArrayList<String> optionsTitle;
@@ -20,14 +20,14 @@ public class Paragraph implements Comparable<Paragraph> {
 		optionsTitle = new ArrayList<>();
 	}
 
-	public Paragraph(String description, int id, String type) {
-		this.description = description;
-		this.id = id;
-		this.type = type;
-		options = new LinkedList<>();
-		IdAdjacents = new ArrayList<>();
-		optionsTitle = new ArrayList<>();
-	}
+//	public Paragraph(String description, int id, String type) {
+//		this.description = description;
+//		this.id = id;
+//		this.type = type;
+//		options = new LinkedList<>();
+//		IdAdjacents = new ArrayList<>();
+//		optionsTitle = new ArrayList<>();
+//	}
 	
 	public boolean isFinalParagraph() {
 		return options.isEmpty();
@@ -47,9 +47,11 @@ public class Paragraph implements Comparable<Paragraph> {
 	
 	@Override
 	public String toString() {
-		StringBuffer res = new StringBuffer("\n");
-		for(int i = 0; i < options.size(); i++)
+		StringBuffer res = new StringBuffer("");
+		res.append(description);
+		for(int i = 0; i < options.size(); i++) {
 			res.append("OPTION " + (i + 1) + ": " + options.get(i).description);
+		}
 			
 		return res.toString();
 	}

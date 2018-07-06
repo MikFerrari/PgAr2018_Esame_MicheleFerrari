@@ -3,7 +3,7 @@ package it.unibs.ing.fp.storiavirtuale;
 public class Main {
 
 	private final static String WELCOME_MESSAGE = "Benvenuto nel nostro portale per storie virtuali!";
-	private final static String BYE_MESSAGE = "Grazie per aver giocato. A presto!";
+	private final static String BYE_MESSAGE = "La storia e' terminata. Grazie per aver giocato. A presto!";
 	
 	public static void main(String[] args) {
 		

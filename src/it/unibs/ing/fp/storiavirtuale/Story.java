@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class Story {
 
 	private String title;
-	private LinkedList<Paragraph> paragraphs;
+	private LinkedList<Paragraph> paragraphs; ////cambiata in ArrayList per migliorare efficienza (Utilizzo accessi casuali)
 	private Paragraph startingPoint;
 	private LinkedList<Paragraph> endingPoints;
 	private int numberOfParagraphs;
@@ -44,6 +44,10 @@ public class Story {
 		this.numberOfParagraphs = numberOfParagraphs;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -76,6 +80,18 @@ public class Story {
 			if(par.getId() == id)
 				return par;
 		return null;
+	}
+	
+	@Override
+	public String toString() {
+		return "La storia si intitola: " + title + " e si articola in " + numberOfParagraphs + " capitoli. Buon divertimento!";
+	}
+
+	public boolean hasFinished(Paragraph current) {
+		for(Paragraph par : endingPoints)
+			if(current.getId() == par.getId())
+				return true;
+		return false;
 	}
 	
 }

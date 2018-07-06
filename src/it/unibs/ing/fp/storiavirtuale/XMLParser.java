@@ -19,6 +19,7 @@ public class XMLParser {
 		String description;
 		
 		String temp = "";
+		int cont = 0;
 		Paragraph par = null;
         
         try {
@@ -55,6 +56,7 @@ public class XMLParser {
                 			ParagraphId = Integer.valueOf(xmlr.getAttributeValue(0));
                 			type = xmlr.getAttributeValue(1);
                 			par = new Paragraph(ParagraphId, type);
+                			cont = 0;
                 			story.getParagraphs().add(par);
                 			//System.out.println(ParagraphId + " " + type);
                 		}
@@ -68,14 +70,18 @@ public class XMLParser {
                 		break;
                
             		case XMLStreamConstants.CHARACTERS:
-            			if(temp.equals("description")) {
+            			if(temp.equals("description") && cont == 0) {
             				description = xmlr.getText().trim();
             				par.setDescription(description);
-            				//System.out.println(description);
+//           				System.out.println(par.toString());
+//            				System.out.println(par.getDescription());
+            				cont++; 
             			}
             			
             			if(temp.equals("option")) {
                 			option = xmlr.getText().trim();
+                			if(option.equals(""))
+                				break;
                 			par.getOptionsTitle().add(option);            
                 			//System.out.println(option);
             			}
