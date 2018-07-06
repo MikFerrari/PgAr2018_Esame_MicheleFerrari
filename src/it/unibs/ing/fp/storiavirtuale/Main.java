@@ -3,19 +3,30 @@ package it.unibs.ing.fp.storiavirtuale;
 public class Main {
 
 	private final static String WELCOME_MESSAGE = "Benvenuto nel nostro portale per storie virtuali!";
-	private final static String BYE_MESSAGE = "La storia e' terminata. Grazie per aver giocato. A presto!";
+	private final static String BYE_MESSAGE = "Grazie per aver giocato. A presto!";
 	
 	public static void main(String[] args) {
 		
-		Story story = new Story();
+		StoryCollection collection = new StoryCollection();
+		Story story1 = new Story();	//Codice del nucleo
+		Story story2 = new Story();
 		
-		welcome();
+		welcome();	//Codice del nucleo
 		
-		UserInterface.generateStory(story);
+		UserInterface.generateStory(story1, "PgAr2018_Story_2.1.xml");	//Codice del nucleo
+		UserInterface.generateStory(story2, "PgAr2018_Story_2.2.xml");
 		
-		UserInterface.manageInteraction(story);
+		collection.addStory(story1);
+		collection.addStory(story2);
 		
-		bye();
+		UserInterface.manageCollection(collection);
+		
+		
+		// UserInterface.manageInteraction(story1);		//Codice del nucleo
+		
+		
+		bye();	//Codice del nucleo
+		
 		
 	}
 	

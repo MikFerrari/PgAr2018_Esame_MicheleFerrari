@@ -2,8 +2,10 @@ package it.unibs.ing.fp.storiavirtuale;
 
 import java.util.ArrayList;
 
-public class Story {
+public class Story implements Comparable<Story> {
 
+	private final static String STORY_FORMAT =  "Titolo: %s. La storia si articola in %d capitoli";
+	
 	private String title;
 	private ArrayList<Paragraph> paragraphs; ////cambiata in ArrayList per migliorare efficienza (Utilizzo accessi casuali)
 	private Paragraph startingPoint;
@@ -84,7 +86,7 @@ public class Story {
 	
 	@Override
 	public String toString() {
-		return "La storia si intitola: " + title + " e si articola in " + numberOfParagraphs + " capitoli. Buon divertimento!";
+		return String.format(STORY_FORMAT, title, numberOfParagraphs);
 	}
 
 	public boolean hasFinished(Paragraph current) {
@@ -92,6 +94,15 @@ public class Story {
 			if(current.getId() == par.getId())
 				return true;
 		return false;
+	}
+
+	@Override
+	public int compareTo(Story other) { //Per l'ordinamento alfabetico
+		return this.title.compareTo(other.title);
+	}
+	
+	public int compareToNumberOfParagraphs(Story other) { //Per l'ordinamento secondo il numero di paragrafi
+		return Integer.compare(this.numberOfParagraphs, other.numberOfParagraphs);
 	}
 	
 }
