@@ -1,6 +1,9 @@
 package it.unibs.ing.fp.storiavirtuale;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class Story implements Comparable<Story> {
 
@@ -121,6 +124,33 @@ public class Story implements Comparable<Story> {
 		for(int i = 1; i < paragraphs.size() - 1; i++)
 			totalOptions += paragraphs.get(i).getOptions().size();
 		return totalOptions / (numberOfParagraphs - 2); //Escludo il primo e l'ultimo, come da consegna
-	}		
+	}	
+	
+	public int depthFirstSearch() {
+		int pathLength = 0;
+		int minPathLenght = Integer.MAX_VALUE;
+		int counter = 0;
+		Stack<Paragraph> nodesToVisit = new Stack<Paragraph>();
+		nodesToVisit.push(startingPoint);
+		
+		while(!nodesToVisit.isEmpty()) {
+			Paragraph currentNode = nodesToVisit.pop();
+			if(currentNode.isFinalParagraph()) {
+				pathLength = counter;
+				counter -= 2; //Tolgo 2 perchè alla fine reincremento di 1
+				if(pathLength < minPathLenght)
+					minPathLenght = pathLength;
+			}
+			
+			if(!currentNode.isFinalParagraph())
+				for(Paragraph par : currentNode.getOptions())
+					nodesToVisit.push(par);
+			
+			counter++;
+		}
+		
+		return pathLength;
+		
+	}
 	
 }

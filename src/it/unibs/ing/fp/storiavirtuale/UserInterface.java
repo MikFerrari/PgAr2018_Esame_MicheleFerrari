@@ -13,10 +13,12 @@ public class UserInterface {
 	private final static String PLAYSTORY_MENU_TITLE = "Inserire il titolo della storia da giocare";
 	private final static String DIFFICULTY_MENU_TITLE = "Selezionare uno dei seguenti algoritmi per eseguirlo";
 	private final static String[] DIFFICULTY_MENU_CHOICES = { "Calcola la dimensione della storia", "Calcola la verbosita' della storia",
-															  "Calcola la complessita' dell'intreccio della storia" };
+															  "Calcola la complessita' dell'intreccio della storia",
+															  "Calcolare il numero di paragrafi della storia piu' breve" };
 	private final static String DIMENSION_FORMAT = "Dimensione della storia selezionata: %d";
 	private final static String VERBOSITY_FORMAT = "Verbosita' della storia selezionata: %.2f";
 	private final static String PLOT_COMPLEXITY_FORMAT = "Complessita' dell'intreccio della storia selezionata: %.2f";
+	private final static String MIN_PATH_FORMAT = "Lunghezza della piu' breve storia possibile: %d";
 
 	public static void generateStory(Story story, String filename) {
 		XMLParser.read(filename, story);
@@ -83,10 +85,10 @@ public class UserInterface {
 					break;
 					
 				case 6: MyMenu case6Menu = new MyMenu(DIFFICULTY_MENU_TITLE, DIFFICULTY_MENU_CHOICES);
-						int case6Coiche = case6Menu.choose();
+						int case6Choice = case6Menu.choose();
 						Story case6Story = selectStory(collection);
 
-						switch(case6Coiche) {
+						switch(case6Choice) {
 							case 0:
 								break;
 							
@@ -97,6 +99,9 @@ public class UserInterface {
 								break;
 							
 							case 3: System.out.println(String.format(PLOT_COMPLEXITY_FORMAT, case6Story.calculatePlotComplexity()));
+								break;
+								
+							case 4: System.out.println(String.format(MIN_PATH_FORMAT, case6Story.depthFirstSearch()));
 								break;
 						}
 						
